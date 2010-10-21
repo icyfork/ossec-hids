@@ -28,7 +28,7 @@ export USER_ENABLE_ACTIVE_RESPONSE=y
                                    # y/n      enable active response
 export USER_ENABLE_EMAIL=y         # y/n      email notification is YES
 export USER_EMAIL_ADDRESS="<email>"
-                                   # email    email receivier
+                                   # email    email receiver
 export USER_EMAIL_SMTP=localhost   # host     SMTP host
 export USER_ENABLE_ACTIVE_RESPONSE=y
                                    # y/n      active response / firewall
