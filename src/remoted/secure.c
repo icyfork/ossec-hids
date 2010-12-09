@@ -148,7 +148,7 @@ void HandleSecure()
          *  (b) agent -> agent -> sender
          *
          * The second case (b) may occur when we can't detect the <agent_id>
-         * from recived messages (data lost!?)
+         * from received messages (data lost!?)
          *
          * */
         if(buffer[0] == '!')

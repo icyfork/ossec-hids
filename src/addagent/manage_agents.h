@@ -58,8 +58,9 @@ fpos_t fp_pos;
 
 /* Internal defines */
 #define USER_SIZE       514
-#define FILE_SIZE       257
-#define STR_SIZE        66
+#define FILE_SIZE       259
+#define STR_SIZE        68
+#define ID_MAX_LENGTH   10
 
 /* Internal strings */
 #define QUIT                "\\q"
@@ -94,8 +95,8 @@ fpos_t fp_pos;
 #define NO_AGENT        "\n** No agent available. You need to add one first.\n"
 #define NO_ID           "\n** Invalid ID '%s' given. ID is not present.\n"
 #define NO_KEY          "\n** Invalid authentication key. Starting over again.\n"
-#define INVALID_ID      "\n** Invalid ID '%s' given. ID must be numeric (max 8 digits).\n\n"
-#define INVALID_NAME    "\n** Invalid name '%s' given. Name must contain only alphanumeric characters (min=2, max=32).\n\n"
+#define INVALID_ID      "\n** Invalid ID '%s' given. ID must be numeric (max 10 digits).\n\n"
+#define INVALID_NAME    "\n** Invalid name '%s' given. Name must contain only alphanumeric characters (min=2, max=128).\n\n"
 
 /* Remove agent */
 #define REMOVE_ID       "Provide the ID of the agent to be removed (or '\\q' to quit): "

@@ -197,12 +197,13 @@ int add_agent()
     do
     {
         /* Default ID */
+        /* Start to find a free ID from the highest value 1024 */
         i = 1024;
-        snprintf(id, 8, "%03d", i);
+        snprintf(id, ID_MAX_LENGTH, "%03d", i);
         while(!IDExist(id))
         {
             i--;
-            snprintf(id, 8, "%03d", i);
+            snprintf(id, ID_MAX_LENGTH, "%03d", i);
 
             /* No key present, use id 0 */
             if(i <= 0)
@@ -211,7 +212,7 @@ int add_agent()
                 break;
             }
         }
-        snprintf(id, 8, "%03d", i+1);
+        snprintf(id, ID_MAX_LENGTH, "%03d", i+1);
 
         /* Getting ID */
         printf(ADD_ID, id);

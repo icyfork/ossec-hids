@@ -26,7 +26,7 @@ int OS_IsValidID(char *id)
     id_len = strlen(id);
 
     /* Check ID length, it should contain max. 8 characters */
-    if (id_len > 8)
+    if (id_len > ID_MAX_LENGTH)
       return(0);
 
     /* Check ID if it contains only numeric characters [0-9] */
