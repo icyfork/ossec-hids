@@ -32,22 +32,19 @@ int k_import(char *cmdimport)
 
     char line_read[FILE_SIZE +1];
 
-
     /* Parsing user argument. */
-    if(cmdimport)
-    {
+    user_input = getenv("OSSEC_AGENT_KEY");
+    if (user_input == NULL) {
+      if(cmdimport)
+      {
         user_input = cmdimport;
-    }
-    else
-    {
+      }
+      else
+      {
         printf(IMPORT_KEY);
-
-        user_input = getenv("OSSEC_AGENT_KEY");
-        if (user_input == NULL) {
-          user_input = read_from_user();
-        }
+        user_input = read_from_user();
+      }
     }
-
 
     /* quit */
     if(strcmp(user_input, QUIT) == 0)
