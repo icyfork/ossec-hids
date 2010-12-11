@@ -1,0 +1,85 @@
+
+== Send notifcations to multiple users ==
+
+By default, OSSEC sends all notifications to a single email address which
+is specified in the configuration (etc/ossec.conf):
+
+  <ossec_config>
+    <global>
+      <email_notification>yes</email_notification>
+      <email_to>receiver@example.net</email_to>
+    </global>
+
+This is a bit annoyed if your company have more than one administrators
+who also want received alerts from OSSEC. Though OSSEC doesn't support
+sending message to multiple users, you can get rid of this problem by
+setting up email routing.
+
+== Exim filter ==
+
+If 'receiver@example.net' is an Exim account, you can use Exim filter to
+delivery notifications to the right persons. Please note in the following
+example you will have to configure your *Exim* account/server.
+
+(1) Update mail aliases (/etc/aliases)
+
+  In this example, notifications whose level is greater than 7 will be
+  sent to two administrators (admin0 and admin1). You may add any number
+  receivers as you want.
+
+  After updating the file /etc/aliases you would reload your Exim server.
+
+  +-----------------------------------------
+  |  ossec_level_0:  admin0
+  |  ossec_level_1:  admin0
+  |  ossec_level_2:  admin0
+  |  ossec_level_3:  admin0
+  |  ossec_level_4:  admin0
+  |  ossec_level_5:  admin0
+  |  ossec_level_6:  admin0
+  |  ossec_level_7:  admin0
+  |  ossec_level_8:  admin0, admin1
+  |  ossec_level_9:  admin0, admin1
+  |  ossec_level_10: admin0, admin1
+  |  ossec_level_11: admin0, admin1
+  |  ossec_level_12: admin0, admin1
+  |  ossec_level_13: admin0, admin1
+  |  ossec_level_14: admin0, admin1
+  |  ossec_level_15: admin0, admin1
+  |  ossec_level_16: admin0, admin1
+  |  ossec_level_17: admin0, admin1
+  |  ossec_level_18: admin0, admin1
+  |  ossec_level_19: admin0, admin1
+  |  ossec_level_20: admin0, admin1
+  |
+  |  admin0: admin0@example.net
+  |  admin1: admin1@example.net
+  +-----------------------------------------
+
+(2) Update exim filter (/home/receiver/.forward)
+
+  By default, the subject of notifications sent by OSSEC has a string
+  that indicates the level. For example,
+
+            OSSEC Notification - <hostname> - Alert level 3
+
+  We will filter that subject to get the right level number, as below.
+  We must use filter function provided by Exim, as default filter of
+  GNU Sendmail doesn't help. More Exim's instructions can be found at
+    http://exim.org/exim-html-current/doc/html/spec_html/filter_ch03.html
+
+  NOTE: the first line of the file '.forward' should be "# Exim filter",
+  as that will help Exim to choose the right kind of filter.
+
+  +-----------------------------------------
+  | # Exim filter
+  |
+  |  if $header_subject: matches "level ([0-9]+)\\$"
+  |  then
+  |    deliver ossec_level_$1
+  |  endif
+  |  deliver root
+  +-----------------------------------------
+
+--
+Anh K. Huynh <kyanh@viettug.org>
