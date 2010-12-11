@@ -10,22 +10,22 @@ is specified in the configuration (etc/ossec.conf):
       <email_to>receiver@example.net</email_to>
     </global>
 
-This is a bit annoyed if your company have more than one administrators
+This is a bit annoyed if your company has more than one administrators
 who also want received alerts from OSSEC. Though OSSEC doesn't support
-sending message to multiple users, you can get rid of this problem by
+to send message to multiple users, you can get rid of this problem by
 setting up email routing.
 
 == Exim filter ==
 
 If 'receiver@example.net' is an Exim account, you can use Exim filter to
-delivery notifications to the right persons. Please note in the following
+delivery notifications to the right persons. Please note: in the following
 example you will have to configure your *Exim* account/server.
 
 (1) Update mail aliases (/etc/aliases)
 
   In this example, notifications whose level is greater than 7 will be
   sent to two administrators (admin0 and admin1). You may add any number
-  receivers as you want.
+  of receivers as you want.
 
   After updating the file /etc/aliases you would reload your Exim server.
 
@@ -64,7 +64,7 @@ example you will have to configure your *Exim* account/server.
             OSSEC Notification - <hostname> - Alert level 3
 
   We will filter that subject to get the right level number, as below.
-  We must use filter function provided by Exim, as default filter of
+  We must use filter function provided by Exim, as the default filter of
   GNU Sendmail doesn't help. More Exim's instructions can be found at
     http://exim.org/exim-html-current/doc/html/spec_html/filter_ch03.html
 
@@ -73,6 +73,9 @@ example you will have to configure your *Exim* account/server.
 
   +-----------------------------------------
   | # Exim filter
+  |
+  | # Send notifications to right level
+  | # Also send a copy to root account
   |
   |  if $header_subject: matches "level ([0-9]+)\\$"
   |  then
