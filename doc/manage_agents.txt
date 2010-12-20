@@ -1,17 +1,30 @@
-
 == HOWTO add an agent without any keyboard input ==
 
 By default, to add an agent from server side, you must provide your agent
 information  to `manage_agents` program, by using its interactive mode.
-This is really tedious if you have many servers / agents to add. Luckily,
-you can use following environment variables as responses
+This is really tedious if you have many servers / agents to add. Instead
+you can use the following methods to add many agents quickly.
+
+=== Using ossec-batch-manager.pl ===
+
+In the directory '/contrib/' there is a script 'ossec-batch-manage.pl'
+          http://www.ossec.net/wiki/Know_How:BulkAgentAdd
+
+=== Anh's patch ===
+
+Anh (K. Huynh) has a small modification for 'manage_agents' so that it
+accepts various environment variables to specify agent's information.
+These modifications can be found in
+            https://github.com/icy/ossec-hids/tree/v2.5.0
+
+You can use following environment variables as responses
 
      | variable name          | value   | description          |
      +------------------------+---------+----------------------+
      | OSSEC_ACTION           | A/a     | add an agent         |
      | OSSEC_AGENT_NAME       | string  | name of agent        |
      | OSSEC_AGENT_IP         | CIDR    | ip address of agent  |
-     | OSSEC_AGENT_ID         | integer | max length = 8       | (**)
+     | OSSEC_AGENT_ID         | integer | max length = 10      | (**)
      | OSSEC_AGENT_KEY        | string  | base64 format        | (*)
      | OSSEC_ACTION_CONFIRMED | y/Y/n/N | y -> confirmed       |
 
@@ -29,13 +42,14 @@ For more details, please refer to OSSEC document
 PS: you may use some tools (`expect`) to send strings to `manage_agents`,
 insead of using the above environment variables. It's your choice.
 
-== HOWTO import key on agent ==
+=== HOWTO import key on agent ===
 
 Be default, to import the key (from the server) on an agent, you need to
 complete the following steps:
 
   (a) (on server) extract the key from server
       manage_agents -e <agent_id>
+
   (b) (on agent) import the key to the agent
       manage_agents -i <agent_key>
 
@@ -50,6 +64,9 @@ as below
       export OSSEC_AGENT_KEY=<agent_key>
       export OSSEC_ACTION_CONFIRMED=y
       manage_agents -i <any_string>
+
+The method (b) requires Anh's modifcation as in
+            https://github.com/icy/ossec-hids/tree/v2.5.0
 
 --
 Anh K. Huynh <kyanh@viettug.org>
