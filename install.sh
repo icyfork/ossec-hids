@@ -1171,12 +1171,6 @@ main()
     fi
 }
 
-_f_cfg="./install.cfg.sh"
-
-if [ -f $_f_cfg ]; then
-  . $_f_cfg
-fi
-
 ### Calling main function where everything happens
 main
 
