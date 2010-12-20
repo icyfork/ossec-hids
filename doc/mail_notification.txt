@@ -11,11 +11,14 @@ is specified in the configuration (etc/ossec.conf):
     </global>
 
 This is a bit annoyed if your company has more than one administrators
-who also want received alerts from OSSEC. Though OSSEC doesn't support
-to send message to multiple users, you can get rid of this problem by
-setting up email routing.
+who also want received alerts from OSSEC. To get rid of this problem, you
+have some different methods, as below.
 
-== Exim filter ==
+=== Method 1: OSSEC config ===
+
+See more at http://www.ossec.net/wiki/Know_How:GranularEmail
+
+=== Method 2: Exim filter ===
 
 If 'receiver@example.net' is an Exim account, you can use Exim filter to
 delivery notifications to the right persons. Please note: in the following
