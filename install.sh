@@ -42,18 +42,20 @@ fi
 SET_DEBUG=""
 
 # Checking for command line arguments
-for i in $*; do
-    if [ "X$i" = "Xdebug" ]; then
-        SET_DEBUG="debug"
-    elif [ "X$i" = "Xbinary-install" ]; then
-        USER_BINARYINSTALL="yes"
-    elif [ "X$i" = "Xhelp" ]; then
-        echo "$0 debug"
-        echo "$0 binary-install"
-        exit 1;
-    fi
-done
-
+CheckCommandLineArguments()
+{
+  for i in $*; do
+      if [ "X$i" = "Xdebug" ]; then
+          SET_DEBUG="debug"
+      elif [ "X$i" = "Xbinary-install" ]; then
+          USER_BINARYINSTALL="yes"
+      elif [ "X$i" = "Xhelp" ]; then
+          echo "$0 debug"
+          echo "$0 binary-install"
+          exit 1;
+      fi
+  done
+}
 
 
 ##########
@@ -1172,12 +1174,8 @@ main()
 }
 
 ### Calling main function where everything happens
+CheckCommandLineArguments $*
 main
-
-
-exit 0
-
-
 
 ## EOF ##
 
