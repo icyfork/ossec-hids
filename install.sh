@@ -39,7 +39,7 @@ if [ ! $? = 0 ]; then
 fi
 
 # Initializing vars
-SET_DEBUG=""
+# SET_DEBUG=""
 
 # Checking for command line arguments
 CheckCommandLineArguments()
